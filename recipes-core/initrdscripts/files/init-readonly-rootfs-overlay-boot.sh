@@ -23,8 +23,8 @@ ROOT_ROMOUNTOPTIONS="bind"
 ROOT_ROMOUNTOPTIONS_DEVICE="noatime,nodiratime"
 
 ROOT_RWFSTYPE=""
-ROOT_RWMOUNTOPTIONS="rw,noatime,mode=755 tmpfs"
-ROOT_RWMOUNTOPTIONS_DEVICE="rw,noatime,mode=755"
+ROOT_RWMOUNTOPTIONS="rw,noatime,mode=755 tmpfs" 
+ROOT_RWMOUNTOPTIONS_DEVICE="" #rw,noatime,mode=755
 
 early_setup() {
 	mkdir -p /proc
@@ -41,27 +41,27 @@ read_args() {
 		# given
 		optarg=`expr "x$arg" : 'x[^=]*=\(.*\)' || echo ''`
 		case $arg in
-			root=*)
+			ol_root=*)
 				ROOT_RODEVICE=$optarg ;;
-			rootfstype=*)
+			ol_rootfstype=*)
 				ROOT_ROFSTYPE="$optarg"
 				modprobe $optarg 2> /dev/null || \
 					log "Could not load $optarg module";;
-			rootinit=*)
+			ol_rootinit=*)
 				ROOT_ROINIT=$optarg ;;
-			rootoptions=*)
+			ol_rootoptions=*)
 				ROOT_ROMOUNTOPTIONS_DEVICE="$optarg" ;;
-			rootrw=*)
+			ol_rootrw=*)
 				ROOT_RWDEVICE=$optarg ;;
-			rootrwfstype=*)
+			ol_rootrwfstype=*)
 				ROOT_RWFSTYPE="$optarg"
 				modprobe $optarg 2> /dev/null || \
 					log "Could not load $optarg module";;
-			rootrwreset=*)
+			ol_rootrwreset=*)
 				ROOT_RWRESET=$optarg ;;
-			rootrwoptions=*)
+			ol_rootrwoptions=*)
 				ROOT_RWMOUNTOPTIONS_DEVICE="$optarg" ;;
-			init=*)
+			ol_init=*)
 			INIT=$optarg ;;
 		esac
 	done
